@@ -4,6 +4,7 @@ import {
   HomeIcon,
   DocumentDuplicateIcon,
 } from '@heroicons/react/24/outline';
+import {TbMathSymbols} from "react-icons/tb"
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
@@ -13,9 +14,9 @@ import clsx from 'clsx';
 const links = [
   { name: 'Home', href: '/dashboard', icon: HomeIcon },
   {
-    name: 'Invoices',
+    name: 'Math Equations',
     href: '/dashboard/invoices',
-    icon: DocumentDuplicateIcon,
+    icon: TbMathSymbols,
   },
   { name: 'Customers', href: '/dashboard/customers', icon: UserGroupIcon },
 ];
