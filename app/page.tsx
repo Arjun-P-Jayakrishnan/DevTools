@@ -1,42 +1,87 @@
-import DevToolsLogo from '@/app/ui/dev-tools-logo';
-import { ArrowRightIcon } from '@heroicons/react/24/outline';
-import Link from 'next/link';
-import Image from 'next/image';
+import Link from "next/link";
+import { GrPlan } from "react-icons/gr";
+import type { FC, ReactElement } from "react";
+import { FaImagePortrait } from "react-icons/fa6";
+import { MdOutlineLibraryBooks } from "react-icons/md";
+import Image from "next/image";
+import Logo from "../assets/Logo.png";
+import SamuraiLogo from "../assets/samurai.png"
+import { sedgwickAve } from "./ui/fonts";
+
+interface Link {
+  url: string;
+  Icon: ReactElement;
+  title: string;
+}
+
+const links: Link[] = [
+  {
+    url: "/dashboard/pipeline",
+    Icon: <GrPlan size={`1rem`} />,
+    title: "Pipeline",
+  },
+  {
+    url: "https://arjun-p-jayakrishnan.github.io/",
+    Icon: <FaImagePortrait size={`1rem`} />,
+    title: "Portfolio",
+  },
+  {
+    url: "/dashboard/library",
+    Icon: <MdOutlineLibraryBooks size={`1rem`} />,
+    title: "Library",
+  },
+];
+
+const Navbar: FC<ReactElement> = () => {
+  return (
+    <div className="flex flex-row justify-between">
+      <Image src={Logo} height={75} width={75} alt="" />
+      <ul className="flex flex-row justify-between gap-1 m-1">
+        {links.map((link, index) => {
+          return (
+            <li key={index}>
+              <Link
+                href={link.url}
+                className="
+                flex flex-row align-middle gap-2 justify-center
+                min-w-fit p-3 
+                bg-white border border-gray-200 rounded-lg shadow 
+                hover:bg-gray-100 dark:bg-gray-800 
+                dark:border-gray-700 dark:hover:bg-gray-700"
+              >
+                {link.Icon}{link.title}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+};
+
+const Body = () => {
+  return (
+    <div className="h-screen max-h-[65vh] w-screen max-w bg-purple-600-900 grid place-content-center justify-items-center">
+      <Image
+        src={SamuraiLogo}
+        width={`400`}
+        height={`400`}
+        alt="Picture of the author"
+        color="black"
+      />
+      <p className={`${sedgwickAve}`}>Welcome to Dev Tools</p>
+      <p>Here you will find my personal <strong>Blog </strong>,<strong>Portfolio </strong>,<strong>Project Plans</strong> etc. </p>
+    </div>
+  );
+};
+
+
 
 export default function Page() {
   return (
-    <main className="flex min-h-screen flex-col p-6">
-      <div className="flex h-20 items-end rounded-lg bg-blue-500 p-2 md:h-52">
-        <DevToolsLogo />
-      </div>
-      <div className="mt-4 flex grow flex-col gap-4 md:flex-row">
-        <div className="flex flex-col justify-center gap-6 rounded-lg bg-gray-50 px-6 py-10 md:w-2/5 md:px-20">
-          <p className={`text-xl text-gray-800 md:text-3xl md:leading-normal`}>
-            <strong>Welcome to Dev Tools.</strong> This site contains tools as per the requirements for developer in his coding adventure.</p>
-          <Link
-            href="/login"
-            className="flex items-center gap-5 self-start rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
-          >
-            <span>Log in</span> <ArrowRightIcon className="w-5 md:w-6" />
-          </Link>
-        </div>
-        <div className="flex items-center justify-center p-6 md:w-3/5 md:px-28 md:py-12">
-        <Image
-        src="/hero-desktop.png"
-        width={1000}
-        height={760}
-        className="hidden md:block"
-        alt="Screenshots of the dashboard project showing desktop version"
-      />
-         <Image
-        src="/hero-mobile.png"
-        width={1000}
-        height={760}
-        className="block md:hidden"
-        alt="Screenshots of the dashboard project showing desktop version"
-      />
-        </div>
-      </div>
+    <main className="min-h-screen flex flex-col justify-start align-middle gap-1">
+      <Navbar key={null} type={""} props={undefined} />
+      <Body/>
     </main>
   );
 }
