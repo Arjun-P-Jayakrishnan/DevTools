@@ -1,0 +1,21 @@
+import {MdxLayout} from "@/app/mdx-layout/layout.tsx"
+
+export const meta = {
+  author: 'Georgey',
+  title: 'Introduction to Technical Writing',
+  slug: 'introduction-to-technical-writing',
+  topics: [
+    'technical writing',
+    'software engineering',
+    'technical writing basics',
+  ],
+};
+
+
+# Welcome to my MDX page now!
+## Welcome
+### Welcome
+
+
+
+export default ({ children }) => <MdxLayout meta={meta}>{children}</MdxLayout>
