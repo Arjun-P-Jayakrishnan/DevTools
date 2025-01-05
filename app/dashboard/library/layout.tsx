@@ -1,82 +1,74 @@
-import { NavContext } from "./(context)/context";
-import { VscExtensions } from "react-icons/vsc";
+"use client";
 import { VscFolderLibrary } from "react-icons/vsc";
-import Link from "next/link";
+import { Content_Type} from "@/lib/mdx-utils";
+import navigationMetaData from "@/library-database/navigationMetaData.json";
+import { WrapperNode } from "./(context)/elementReactParser";
 
-interface Topic {
-  name: string;
-  icon: any;
-  path: string;
-  contents: Content[];
-}
+const Content = (props: { content: Content_Type; index: number }) => {
+  const keys = Object.keys(props.content.content);
+  const content = props.content.content;
 
-interface Content {
-  title: string;
-  url: string;
-  subTopic?: Content;
-}
-
-const list: Topic[] = [
-  {
-    name: "Dev Tools",
-    path: "library/dev_tools",
-    icon: null,
-    contents: [],
-  },
-  {
-    name: "Go Documneter",
-    path: "library/go_documenetor",
-    icon: null,
-    contents: [],
-  },
-  {
-    name: "Vs Code Extension",
-    path: "library/extension",
-    icon: <VscExtensions />,
-    contents: [
-      {
-        title: "Grammar",
-        url: "/grammar",
-      },
-    ],
-  },
-];
-
-const Topic=(topic:Topic,key:number)=>{
   return (
-    <li key={key} className="flex flex-row align-top ">
-      <Link href={topic.path} className="flex flex-row justify-evenly items-center gap-1 ">
-        {topic.icon}
-        {topic.name}
-      </Link>
-    </li>
-  );
-}
-
-const SideNavbar = () => {
-  return (
-    <>
-      <NavContext>
-        <div className="min-h-full
-         bg-white border border-gray-200 rounded-lg shadow 
-                hover:bg-gray-100 dark:bg-gray-800 
-                dark:border-gray-700 dark:hover:bg-gray-700">
-          <div className="flex flex-row justify-start items-center px-1 gap-1 mr-1 mb-10">
-            <VscFolderLibrary size={50} />
-            Library
-          </div>
-          <ul className="px-3 flex flex-col gap-3">
-            {list.map((item, index) => {
-              return Topic(item,index)
-            })}
-          </ul>
-       </div>
-      </NavContext>
-    </>
+    <WrapperNode
+      data={{
+        name: props.content.name,
+        url: props.content.path,
+        type: props.content.type,
+      }}
+    >
+      {keys.length > 0 ? (
+        keys.map((key, index) => (
+          <Content
+            content={content[key]}
+            key={props.index + key}
+            index={index}
+          ></Content>
+        ))
+      ) : (
+        <WrapperNode
+          data={{
+            name: props.content.name,
+            url: props.content.path,
+            type: props.content.type,
+          }}
+          children={null}
+        />
+      )}
+    </WrapperNode>
   );
 };
 
 
+
+const Topics = () => {
+  const metaData = JSON.parse(JSON.stringify(navigationMetaData));
+  const keys = Object.keys(metaData);
+
+  return keys.map((key, index) => {
+    return <Content content={metaData[key]} index={index}  />;
+  });
+};
+
+const SideNavbar = () => {
+  return (
+    <>
+      <div
+        className="min-h-full
+         bg-white border border-gray-200 rounded-lg shadow 
+                 dark:bg-gray-800 
+                dark:border-gray-700 dark:hover:bg-gray-700"
+      >
+        <div className="flex flex-row justify-start items-center px-1 gap-1 mr-1 mb-10">
+          <VscFolderLibrary size={50} />
+          Library
+        </div>
+        <ul className="list-disc list-inside px-3 flex flex-col gap-3">
+          <Topics />
+        </ul>
+      </div>
+    </>
+  );
+};
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
