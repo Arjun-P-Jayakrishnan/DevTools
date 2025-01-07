@@ -67,7 +67,7 @@ export const Accordian = (props: {
       </button>
       <div
         style={active ? { display: "none" } : { display: "block" }}
-        className="px-4 pb-5 sm:px-6 sm:pb-6"
+        className="flex flex-col px-4 pb-5 sm:px-6 sm:pb-6"
       >
         {props.children}
       </div>
@@ -79,9 +79,11 @@ export function WrapperNode(props: {
   data: ParsedData_Type;
   children: ReactNode;
 }) {
-  console.log(props)
+ 
   return props.data.type === "file" ? (
-    <Link href={"/dashboard/library/" + props.data.url}>{props.data.name}</Link>
+    <Link href={"/dashboard/library/" + props.data.url} className="flex flex-col py-2 hover:text-green-500">
+      {props.data.name}
+    </Link>
   ) : (
     <Accordian title={props.data.name} isActive={true}>
       {props.children}

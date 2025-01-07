@@ -4,7 +4,13 @@ import { Content_Type} from "@/lib/mdx-utils";
 import navigationMetaData from "@/library-database/navigationMetaData.json";
 import { WrapperNode } from "./(context)/elementReactParser";
 
-const Content = (props: { content: Content_Type; index: number }) => {
+
+interface ContentWrapper{
+  content:Content_Type
+  index:number
+}
+
+const Content = (props: ContentWrapper) => {
   const keys = Object.keys(props.content.content);
   const content = props.content.content;
 
@@ -45,7 +51,7 @@ const Topics = () => {
   const keys = Object.keys(metaData);
 
   return keys.map((key, index) => {
-    return <Content content={metaData[key]} index={index}  />;
+    return <Content content={metaData[key]} index={index} key={index} />;
   });
 };
 
