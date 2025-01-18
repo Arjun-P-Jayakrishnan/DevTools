@@ -1,4 +1,3 @@
-import { WalkingTheTree } from "@/lib/mdx-utils";
 import metaData from "@/library-database/slugMetaData.json"
 
 
@@ -27,7 +26,7 @@ export default async function Page({
  *  }
  * }
  */
-export async function  generateStaticParams() {
+export async function  generateStaticParams(): Promise<any> {
  
   return JSON.parse(JSON.stringify(metaData))
 }

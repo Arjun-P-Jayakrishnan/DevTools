@@ -1,32 +1,28 @@
-import { ParsedData_Type } from "@/lib/elementParser";
-import Link from "next/link";
-import { JSX, ReactNode, useState } from "react";
+import { type } from "os";
+import { ReactNode, useState } from "react";
+import style from "styled-jsx/style";
 
-const elementsQueue: string[] = [];
-let index = 0;
-
-/**
- *
- * @param nodeStart start node
- * @param nodeEnd end node
- * @param isWrapper if true then index is within start and end tags else complets the element
- * and moves outside the end tag
- */
-function addElementToQueue(nodeType: "accordion" | "link", isWrapper: boolean) {
-  elementsQueue.splice(index, 0, nodeType + "-start");
-  elementsQueue.splice(index + 1, 0, nodeType + "-end");
-  index += 1;
-
-  if (isWrapper === true) {
-    index += 1;
-  }
+interface AccordianProps {
+  /**
+   * @description display text to be show on the selcection
+   */
+  title: string;
+  /**
+   * @description Expanded state is true or false
+   */
+  isActive: boolean;
+  /**
+   * @description child components to be rendered inside
+   */
+  children: ReactNode;
 }
 
-export const Accordian = (props: {
-  title: string;
-  isActive: boolean;
-  children: ReactNode;
-}) => {
+/**
+ * @description Accordians are the small expandable list of elements that you
+ * can click on which expands the list.
+ * @param props accordian props
+ */
+export const Accordian = (props: AccordianProps) => {
   const [active, setActive] = useState(props.isActive);
   function toggle() {
     setActive(!active);
@@ -74,21 +70,3 @@ export const Accordian = (props: {
     </div>
   );
 };
-
-export function WrapperNode(props: {
-  data: ParsedData_Type;
-  children: ReactNode;
-}) {
- 
-  return props.data.type === "file" ? (
-    <Link href={"/dashboard/library/" + props.data.url} className="flex flex-col py-2 hover:text-green-500">
-      {props.data.name}
-    </Link>
-  ) : (
-    <Accordian title={props.data.name} isActive={true}>
-      {props.children}
-    </Accordian>
-  );
-}
-
-export function convertToReactElementTree(data: ParsedData_Type[]) {}
