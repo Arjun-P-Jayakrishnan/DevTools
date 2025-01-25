@@ -1,5 +1,5 @@
-import metaData from "@/library-database/slugMetaData.json"
-
+import { getPostBySlug } from "@/app/mdx-layout/utils";
+import metaData from "@/library-database/slugMetaData.json";
 
 /**
  * @description Finds the markdown file from the given list
@@ -9,13 +9,15 @@ import metaData from "@/library-database/slugMetaData.json"
 export default async function Page({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string }>;
 }) {
-  const slug = (await params).slug
+  const slug = (await params).slug;
 
-  const { default: Post } = await import(`@/library-database/${slug.split('_').join('/')}.mdx`)
- 
-  return <Post />
+  const { default: Post } = await import(
+    `@/library-database/${slug.split("_").join("/")}.mdx`
+  );
+
+  return <Post />;
 }
 
 /**
@@ -26,9 +28,9 @@ export default async function Page({
  *  }
  * }
  */
-export async function  generateStaticParams(): Promise<any> {
- 
-  return JSON.parse(JSON.stringify(metaData))
+
+export async function generateStaticParams(): Promise<any> {
+  return JSON.parse(JSON.stringify(metaData));
 }
- 
-export const dynamicParams = false
+
+export const dynamicParams = false;

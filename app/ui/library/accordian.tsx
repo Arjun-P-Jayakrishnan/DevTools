@@ -1,12 +1,19 @@
-import { type } from "os";
-import { ReactNode, useState } from "react";
-import style from "styled-jsx/style";
+import { ReactElement, ReactNode, useState } from "react";
+import { RiArrowDropDownFill, RiArrowDropLeftFill } from "react-icons/ri";
 
 interface AccordianProps {
+  /**
+   * @description the prefic element
+   */
+  prefix?: ReactElement;
   /**
    * @description display text to be show on the selcection
    */
   title: string;
+  /**
+   * @description suffix element
+   */
+  suffic?: ReactElement;
   /**
    * @description Expanded state is true or false
    */
@@ -35,31 +42,15 @@ export const Accordian = (props: AccordianProps) => {
         className="flex items-center justify-between w-full gap-0.3"
         onClick={toggle}
       >
+        <div className="flex flex-row items-center justify-start gap-1">
+        {props.prefix ?? null}
         <span
           className={"text-start font-semibol text-black hover:text-blue-500"}
         >
           {props.title}
         </span>
-        <svg
-          id="arrow1"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          className="w-3 h-3 text-gray-400"
-          style={
-            active
-              ? { transform: "rotate(0deg)" }
-              : { transform: "rotate(90deg)" }
-          }
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M19 9l-7 7-7-7"
-          ></path>
-        </svg>
+        </div>
+        {active ? <RiArrowDropDownFill /> : <RiArrowDropLeftFill />}
       </button>
       <div
         style={active ? { display: "none" } : { display: "block" }}
