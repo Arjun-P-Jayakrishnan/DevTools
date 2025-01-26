@@ -16,7 +16,7 @@ const SideNavbar = () => {
           <VscFolderLibrary size={50} />
           Library
         </div>
-        <ul className="list-disc list-inside px-3 flex flex-col gap-3">
+        <ul className="list-disc list-inside px-3 flex flex-col gap-3 text-sm">
           <Topics />
         </ul>
       </div>

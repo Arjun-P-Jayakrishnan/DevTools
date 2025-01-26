@@ -22,7 +22,7 @@ export function MdxLayout({children, ...props}: LayoutProps) {
             {props.meta.topics.map((topic) => (
               <span
                 key={topic}
-                className="text-sm text-gray-500 bg-gray-200 rounded-full px-2 py-1"
+                className="text-xl text-gray-500 bg-gray-200 rounded-full px-2 py-1"
               >
                 {topic.slice(0, 1).toUpperCase() + topic.slice(1)}
               </span>
