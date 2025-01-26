@@ -1,4 +1,4 @@
-import { getPostBySlug } from "@/app/mdx-layout/utils";
+// import { getPostBySlug } from "@/app/mdx-layout/utils";
 import metaData from "@/library-database/slugMetaData.json";
 
 /**
