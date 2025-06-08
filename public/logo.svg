@@ -1,0 +1,23 @@
+<svg width="400" height="100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css">
+      @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@800&amp;display=swap');
+    </style>
+  </defs>
+  <style>
+    .logo {
+      font-family: 'Nunito', sans-serif;
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+    .dev {
+      fill: black;
+    }
+    .tools {
+      fill: #00C6FF;
+    }
+  </style>
+  <text x="10" y="65" class="logo dev">Dev</text>
+  <text x="120" y="65" class="logo tools">Tools</text>
+</svg>
