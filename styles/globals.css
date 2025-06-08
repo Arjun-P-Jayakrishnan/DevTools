@@ -1,0 +1,92 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer utilities {
+  .max-container {
+    @apply mx-auto max-w-[1440px];
+  }
+
+  .padding-container {
+    @apply px-6 lg:px-20 xl:px-10;
+  }
+
+  .flexCenter {
+    @apply flex items-center justify-center;
+  }
+
+  .flexBetween {
+    @apply flex items-center justify-between;
+  }
+
+  .regular-16 {
+    @apply text-[16px] font-[400];
+  }
+
+  .regular-25 {
+    @apply text-[25px] font-[400];
+  }
+
+  .bold-16 {
+    @apply text-[16px] font-[700];
+  }
+
+  .bold-52 {
+    @apply text-[52px] font-[700];
+  }
+
+  .bold-25 {
+    @apply text-[25px] font-[700];
+  }
+
+  .bold-32 {
+    @apply text-[32px] font-[700];
+  }
+
+  .bold-75 {
+    @apply text-[75px] font-[700];
+  }
+
+  .bold-88 {
+    @apply text-[88px] font-[700];
+  }
+
+  .btn_dark_green {
+    @apply bg-blue-500 px-4 py-2 text-white transition-all hover:bg-black;
+  }
+
+  .hero-map {
+    @apply absolute right-0 h-1/2 w-1/2 bg-pattern-2 bg-cover bg-center;
+  }
+}
+
+/* Define CSS variables for colors in light mode */
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0 0 0);
+  --primary: oklch(0.99 0.005 285.885);
+  --primary-foreground: oklch(0.3 0.02 285.823);
+  --radius: 0.625rem;
+  --muted-foreground: oklch(0.5 0.01 285.823);
+  /* add more variables as you need */
+}
+
+/* Override variables in dark mode */
+.dark {
+  --background: oklch(0.141 0.005 285.823);
+  --foreground: oklch(0.985 0 0);
+  --primary: oklch(0.92 0.004 286.32);
+  --primary-foreground: oklch(0.21 0.006 285.885);
+}
+
+/* Apply base styles */
+@layer base {
+  body {
+    @apply bg-[var(--background)] text-[var(--foreground)] font-sans;
+  }
+  /* Optional: basic focus styles */
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+}
