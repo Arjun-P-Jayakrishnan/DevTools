@@ -23,6 +23,10 @@
     @apply text-[16px] font-[400];
   }
 
+  .regular-25 {
+    @apply text-[25px] font-[400];
+  }
+
   .bold-16 {
     @apply text-[16px] font-[700];
   }
@@ -35,6 +39,10 @@
     @apply text-[25px] font-[700];
   }
 
+  .bold-32 {
+    @apply text-[32px] font-[700];
+  }
+
   .bold-75 {
     @apply text-[75px] font-[700];
   }
@@ -44,11 +52,11 @@
   }
 
   .btn_dark_green {
-    @apply bg-green-300 px-4 py-2 text-white transition-all hover:bg-black;
+    @apply bg-blue-500 px-4 py-2 text-white transition-all hover:bg-black;
   }
 
   .hero-map {
-    @apply absolute mt-40 h-screen w-screen bg-pattern-2 bg-cover bg-center;
+    @apply absolute right-0 h-1/2 w-1/2 bg-pattern-2 bg-cover bg-center;
   }
 }
 

@@ -3,7 +3,7 @@ export interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElemen
   label: string
 }
 
-export default function Checkbox({ label, id, children, className = '', ...props }: CheckboxProps) {
+export default function Checkbox({ label, id, className = '', ...props }: CheckboxProps) {
   return (
     <div className={`flex items-center space-x-2 ${className}`}>
       <input

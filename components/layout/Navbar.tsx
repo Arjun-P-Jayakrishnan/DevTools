@@ -1,13 +1,14 @@
-import Link from 'next/link'
-import Image from 'next/image'
 import { NAV_LINKS } from '@/constants'
-import Button from '../common/Button'
+import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs'
 import { Menu } from 'lucide-react'
-export interface NavbarProps {}
+import Image from 'next/image'
+import Link from 'next/link'
+
+// export interface NavbarProps {}
 
 export default function Navbar() {
   return (
-    <nav className="flexBetween items-center max-container padding-container relative z-30 py-2">
+    <nav className="flexBetween border-b-2 items-center max-container padding-container relative z-30 py-2">
       <Link href="/">
         <Image src="/logo.svg" alt="Logo" height={50} width={200} />
       </Link>
@@ -16,15 +17,28 @@ export default function Navbar() {
           <Link
             href={link.href}
             key={link.key}
-            className="regular-16 text-black flex-center cursor-pointer pb-1.5 transition-all hover:font-bold"
+            className="regular-16 text-black 
+            flex flex-row justify-center items-center gap-2 
+            cursor-pointer pb-1.5 
+            transition-all duration-200 ease-in-out 
+            hover:font-bold hover:border-b-2 hover:text-[18px]
+            "
           >
+            {link.icon}
             {link.label}
           </Link>
         ))}
       </ul>
 
-      <div className="lg:flexCenter hidden">
-        <Button type="button" title="Login" icon="/logo.svg" variant="btn_dark_green" />
+      <div className={`text-[20px] text-black lg:flexCenter flex-row gap-5 items-center hidden`}>
+        {/* <Button type="button" title="Login" variant="btn_dark_green" /> */}
+        <SignedOut>
+          <SignInButton />
+          <SignUpButton />
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
       </div>
 
       <Menu className="text-black inline-block cursor-pointer lg:hidden" height={32} width={32} />

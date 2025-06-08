@@ -13,24 +13,21 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 }
 
 export default function Button({
-  className = '',
   variant = 'primary',
-  size = 'md',
   loading = false,
-  children,
   title,
   type,
   icon,
   ...props
 }: ButtonProps) {
-  const baseStyle =
-    ' px-4 py-2 rounded font-semibold focus:outline-none focus:ring-2 focus:ring-offfset-2 '
+  // const baseStyle =
+  //   ' px-4 py-2 rounded font-semibold focus:outline-none focus:ring-2 focus:ring-offfset-2 '
 
-  const sizeStyles: Record<ButtonSizes, string> = {
-    sm: 'h-8 px-3 text-sm',
-    md: 'h-10 px-4 text-base',
-    lg: 'h-12 px-6 text-lg',
-  }
+  // const sizeStyles: Record<ButtonSizes, string> = {
+  //   sm: 'h-8 px-3 text-sm',
+  //   md: 'h-10 px-4 text-base',
+  //   lg: 'h-12 px-6 text-lg',
+  // }
 
   const variants: Record<ButtonVariants, string> = {
     primary: 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500',
@@ -39,7 +36,7 @@ export default function Button({
     btn_dark_green: 'btn_dark_green',
   }
 
-  const previosStyle = `${baseStyle}  ${variants[variant]} ${sizeStyles[size]} ${className}`
+  //const previosStyle = `${baseStyle}  ${variants[variant]} ${sizeStyles[size]} ${className}`
 
   return (
     <button

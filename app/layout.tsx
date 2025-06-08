@@ -1,7 +1,7 @@
-import { ClerkProvider, useUser } from '@clerk/nextjs'
+import Navbar from '@/components/layout/Navbar'
+import { ClerkProvider } from '@clerk/nextjs'
 import { type Metadata } from 'next'
 import '../styles/globals.css'
-import Navbar from '@/components/layout/Navbar'
 
 export const metadata: Metadata = {
   title: 'Clerk Next.js Quickstart',
@@ -14,11 +14,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className="min-h-screen bg-white text-slate-100 font-sans">
-        <Navbar />
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className="min-h-screen bg-white text-slate-100 font-sans">
+          <Navbar />
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }

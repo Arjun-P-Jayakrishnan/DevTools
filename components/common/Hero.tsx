@@ -1,30 +1,35 @@
-import { Heading, Paragraph } from '../ui/Typography'
-import Link from 'next/link'
+import { Rubik } from 'next/font/google'
 import Image from 'next/image'
 
-export interface HeroProps {}
+// export interface HeroProps {
+
+// }
+
+const inter = Rubik({ subsets: ['latin'], variable: '--font-rubik' })
 
 export default function Hero() {
   return (
     <section
       className="max-container padding-container 
-      flex flex-col  gap-20 py-2  pb-32 
-      md:gap-28 lg:py-20 xl:flex-row
+      flex flex-col md:flex-row gap-1 pt-28
       "
     >
-      <div className="hero-map" />
-
       {/* Left */}
-      <div className="relative z-20 flex flex-1 flex-col xl:w-1/2">
-        <h1 className="text-black bold-25 lg:bold-75 ">
-          Make Your Development faster With Dev Tools
-        </h1>
-        <p className="text-black regular-16 mt-6 text-gray-30 xl:max-w-[520px]">
-          Forged for purpose,These tools will help you do your work faster than ever before
-        </p>
+      <div className={` ${inter.variable} relative z-20 flex flex-1 flex-col justify-center w-1/2`}>
+        <h1 className="text-black lg:bold-52 md:bold-32 sm:bold-25 w-full">Develop Faster</h1>
+        <h3 className="pl-10 text-black bold-32"> with Dev Tools</h3>
+        <blockquote className="text-xl italic text-gray-600 border-l-4 pl-4 border-gray-400 ">
+          “Forged for purpose, Built with love ”
+        </blockquote>
         <div className="my-11 flex flex-wrap gap-5">
           <div className="flex items-center gap-2"></div>
         </div>
+      </div>
+
+      {/* Right */}
+
+      <div className="w-1/2">
+        <Image height={50} width={50} src={'/pattern-bg.svg'} alt="side image" className="w-full" />
       </div>
     </section>
   )

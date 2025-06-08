@@ -14,6 +14,11 @@ module.exports = {
       backgroundImage: {
         'pattern-2': "url('/pattern-bg.svg')",
       },
+      fontFamily: {
+        sans: ['var(--font-rubik)', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
+        // Add custom if needed
+      },
     },
   },
   plugins: [],

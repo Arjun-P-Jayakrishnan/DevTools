@@ -3,17 +3,12 @@ export interface TextInputProps extends React.InputHTMLAttributes<HTMLInputEleme
   error?: string
 }
 
-export default function TextInput({
-  className = '',
-  label,
-  error,
-  children,
-  ...props
-}: TextInputProps) {
+export default function TextInput({ className = '', label, error, ...props }: TextInputProps) {
   const baseStyle = `
     w-full rounded border border-input bg-background px-3 py-2
     text-gray-900 placeholder-muted-foreground 
     shadow-sm focus:outline-none focus:ring-2 
+    ${className}
     ${error ? 'border-red-500 focus:ring-red-500 ' : 'border-input focus:ring-ring'}
     `
 
