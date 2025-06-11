@@ -7,12 +7,10 @@ import {
   TaskTableData,
   TaskTableElements,
 } from "@/features/tickets/task-list-table";
-import Button from "@/modules/common/Button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/modules/common/Dropdown";
@@ -20,7 +18,7 @@ import { MoreHorizontal } from "lucide-react";
 
 const colors: TaskColor = {
   todo: "text-primary bg-gray-500",
-  started: "text-primary bg-green-200",
+  started: "text-primary bg-green-300",
   in_progress: "text-primary bg-blue-200",
   paused: "text-primary bg-yellow-500",
   cancelled: "text-primary bg-red-500",
@@ -50,9 +48,9 @@ const elements: TaskTableElements = {
     header: (title) => <div>{title}</div>,
     cell: (data) => {
       return (
-        <Button className={` ${colors[data]}`} variant="disabled" size={"sm"}>
+        <div className={`text-white rounded-md ${colors[data]} pt-1 pb-1.5`}>
           {data}
-        </Button>
+        </div>
       );
     },
   },
@@ -80,14 +78,16 @@ const elements: TaskTableElements = {
       return (
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <Button variant="ghost" className="h-8 w-8 p-0">
+            <div className="hover:bg-gray-200 rounded-md px-2 py-1">
               <MoreHorizontal />
-            </Button>
+            </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => {}}></DropdownMenuItem>
+            {/* <DropdownMenuLabel>Actions</DropdownMenuLabel> */}
+
+            <DropdownMenuItem onClick={() => {}}>Edit</DropdownMenuItem>
             <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => {}}>Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

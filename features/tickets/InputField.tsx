@@ -1,12 +1,12 @@
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-
-import { Textarea } from "@/modules/common/TextArea";
+import { Input } from "@/components/ui/input";
 import { UseFormReturn } from "react-hook-form";
 import z from "zod";
 import { formSchema } from "./schema";
@@ -19,7 +19,7 @@ interface FormInputProps {
   form: UseFormReturn<z.infer<typeof formSchema>> | null;
 }
 
-const TextAreaFormField = ({
+const InputFormField = ({
   label,
   placeholder,
   field,
@@ -34,12 +34,9 @@ const TextAreaFormField = ({
         <FormItem>
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Textarea
-              placeholder={placeholder}
-              {...field}
-              className="input h-90"
-            ></Textarea>
+            <Input placeholder={placeholder} {...field} className="input" />
           </FormControl>
+          <FormDescription>{description}</FormDescription>
           <FormMessage />
         </FormItem>
       )}
@@ -49,5 +46,5 @@ const TextAreaFormField = ({
   );
 };
 
-export { TextAreaFormField };
+export { InputFormField };
 export type { FormInputProps };

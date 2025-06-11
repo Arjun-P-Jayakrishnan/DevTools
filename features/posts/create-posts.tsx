@@ -1,8 +1,8 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { POST_TEMPLATE } from "@/constants";
 import { createPost } from "@/lib/actions/posts.actions";
+import Button from "@/modules/common/Button";
 import MarkdownViewer from "@/modules/ui/markdown";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { redirect } from "next/navigation";
@@ -116,7 +116,9 @@ const LibraryPostForm = ({
           <PostHeader form={form} />
           <PostSubHeader form={form} />
           <PostContent form={form} />
-          <Button type="submit">Submit</Button>
+          <Button type="submit" className="bg-primary">
+            Submit
+          </Button>
         </form>
       </Form>
     </div>
