@@ -1,4 +1,4 @@
-type ButtonVariants = "primary" | "outline" | "link";
+type ButtonVariants = "primary" | "outline" | "link" | "disabled" | "ghost";
 type ButtonSizes = "default" | "sm" | "icon" | "lg";
 
 export interface ButtonProps
@@ -30,9 +30,15 @@ export default function Button({
   const variants: Record<ButtonVariants, string> = {
     primary:
       "bg-button-primary text-primary-foreground shadow-xs hover:bg-foreground/90",
+
     outline:
       "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
+
+    disabled:
+      "border shadow-xs  hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
     link: "text-primary underline-offset-4 hover:underline",
+    ghost:
+      "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
   };
 
   return (

@@ -46,3 +46,25 @@ export const POST_TEMPLATE = `
   # Install dependencies
   npm install
 `;
+
+export const TASK_LIST_DATA = [
+  {
+    task_id: "task-id",
+    task_title: "title",
+    project_id: "Project id",
+    status: "started",
+    start_date: "start date",
+    end_date: "-",
+    blockers: "-",
+  },
+];
+
+export const TASK_LIST_HEADERS = {
+  task_id: "Task ID",
+  task_title: "Title",
+  project_id: "Project ID",
+  status: "Status",
+  start_date: "Start Date",
+  end_date: "End Date",
+  blockers: "Blockers",
+};

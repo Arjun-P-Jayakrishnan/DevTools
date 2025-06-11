@@ -1,21 +1,16 @@
 import Sidebar, { Tile } from "@/modules/layout/Sidebar";
-import { FolderKanban, TicketPlus, Tickets } from "lucide-react";
+import { FolderKanban, TicketPlus } from "lucide-react";
 
 const tiles: Tile[] = [
   {
-    title: "Projects",
-    href: "/planner/projects",
-    prefix: <FolderKanban />,
-  },
-  {
-    title: "Tickets",
-    href: "/planner/tickets",
-    prefix: <Tickets />,
+    title: "Task List",
+    href: "/planner/tasks",
+    prefix: <FolderKanban height={20} />,
   },
   {
     title: "Create New",
-    href: "/planner/posts",
-    prefix: <TicketPlus />,
+    href: "/planner/new",
+    prefix: <TicketPlus height={20} />,
   },
 ];
 

@@ -1,3 +1,5 @@
+"use client";
+
 export default function PlannerPage() {
-  return <div className="w-5/6  bg-white">hi</div>;
+  return <div className="text-primary w-5/6 h-full px-3 py-3 bg-white"></div>;
 }

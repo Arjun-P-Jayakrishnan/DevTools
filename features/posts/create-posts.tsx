@@ -1,16 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Form } from "@/components/ui/form";
 import { POST_TEMPLATE } from "@/constants";
 import { createPost } from "@/lib/actions/posts.actions";
 import MarkdownViewer from "@/modules/ui/markdown";
@@ -18,27 +8,47 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { redirect } from "next/navigation";
 import { useForm, UseFormReturn } from "react-hook-form";
 import z from "zod";
+import { FormInputProps, InputFormField } from "./InputField";
+import { TextAreaFormField } from "./InputTeaxtArea";
+import { formSchema, NewPostSchemaType } from "./schema";
 
-/** Post Schema */
-export interface PostFormSchema {
-  /** Title of project */
-  title: string;
-  /** Related Fields */
-  category: string;
-  /** Markdown Content */
-  content: string;
-}
-
-const formSchema = z.object({
-  title: z.string().min(2, { message: "Title is required." }),
-  category: z.string().min(2, { message: "Category is required." }),
-  topic: z.string().min(2, { message: "Topic is required." }),
-  tags: z.string().min(2, { message: "Tags is required." }),
-  content: z
-    .string()
-    .min(2, { message: "Content is required." })
-    .max(1000, "Limit to 255 words. Update will have chunking"),
-});
+const fieldConfig: Record<keyof NewPostSchemaType, FormInputProps> = {
+  title: {
+    field: "title",
+    label: "Title",
+    placeholder: "Enter the Title",
+    description: "The Title of the post.",
+    form: null,
+  },
+  topic: {
+    field: "topic",
+    label: "Topic",
+    placeholder: "Enter the topic.",
+    description: "The Topic of the post.",
+    form: null,
+  },
+  category: {
+    field: "category",
+    label: "Category",
+    placeholder: "Enter the category.",
+    description: "The Category of the post.",
+    form: null,
+  },
+  tags: {
+    field: "tags",
+    label: "Tags",
+    placeholder: "Related Fields",
+    description: "',' is the separator",
+    form: null,
+  },
+  content: {
+    field: "content",
+    label: "Content",
+    placeholder: "",
+    description: "",
+    form: null,
+  },
+};
 
 /**
  * @description update database when submitted
@@ -68,42 +78,8 @@ const PostHeader = ({
 }) => {
   return (
     <div className="flex flex-row justify-start gap-3">
-      <FormField
-        control={form.control}
-        name="title"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Title</FormLabel>
-            <FormControl>
-              <Input
-                placeholder="Enter the title"
-                {...field}
-                className="input "
-              />
-            </FormControl>
-            <FormDescription>Post Topic.</FormDescription>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="topic"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Topic</FormLabel>
-            <FormControl>
-              <Input
-                placeholder="Enter the Topic"
-                {...field}
-                className="input"
-              />
-            </FormControl>
-            <FormDescription>Main Topic.</FormDescription>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+      <InputFormField {...fieldConfig["title"]} form={form} />
+      <InputFormField {...fieldConfig["topic"]} form={form} />
     </div>
   );
 };
@@ -114,40 +90,8 @@ const PostSubHeader = ({
 }) => {
   return (
     <div className="flex flex-row justify-start gap-3">
-      <FormField
-        control={form.control}
-        name="category"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Title</FormLabel>
-            <FormControl>
-              <Input
-                placeholder="Enter the title"
-                {...field}
-                className="input"
-              />
-            </FormControl>
-            <FormDescription>Category of the topic</FormDescription>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="tags"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Tags</FormLabel>
-            <FormControl>
-              <Input placeholder="Tags" {...field} className="input" />
-            </FormControl>
-            <FormDescription>
-              Fields relevant to the topic. Use ',' for separation.
-            </FormDescription>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+      <InputFormField {...fieldConfig["category"]} form={form} />
+      <InputFormField {...fieldConfig["tags"]} form={form} />
     </div>
   );
 };
@@ -157,25 +101,7 @@ const PostContent = ({
 }: {
   form: UseFormReturn<z.infer<typeof formSchema>>;
 }) => {
-  return (
-    <FormField
-      control={form.control}
-      name="content"
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>Content</FormLabel>
-          <FormControl>
-            <Textarea
-              placeholder="Enter the Markdown"
-              {...field}
-              className="input h-90"
-            ></Textarea>
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  );
+  return <TextAreaFormField {...fieldConfig["content"]} form={form} />;
 };
 
 const LibraryPostForm = ({
