@@ -65,6 +65,5 @@ export const TASK_LIST_HEADERS = {
   project_id: "Project ID",
   status: "Status",
   start_date: "Start Date",
-  end_date: "End Date",
   blockers: "Blockers",
 };

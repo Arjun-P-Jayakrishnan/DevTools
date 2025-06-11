@@ -1,112 +1,30 @@
-"use client";
+import { TASK_LIST_HEADERS } from "@/constants";
+import { TaskTable, TaskTableData } from "@/features/tickets/task-list-table";
+import { getAllTasks } from "@/lib/actions/tasks.actions";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
-import { TASK_LIST_DATA, TASK_LIST_HEADERS } from "@/constants";
-import {
-  TaskColor,
-  TaskTable,
-  TaskTableData,
-  TaskTableElements,
-} from "@/features/tickets/task-list-table";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/modules/common/Dropdown";
-import { MoreHorizontal } from "lucide-react";
+const TaskListsPage = async () => {
+  const { userId } = await auth();
 
-const colors: TaskColor = {
-  todo: "text-primary bg-gray-500",
-  started: "text-primary bg-green-300",
-  in_progress: "text-primary bg-blue-200",
-  paused: "text-primary bg-yellow-500",
-  cancelled: "text-primary bg-red-500",
-  completed: "text-primary bg-green-100",
-};
+  if (!userId) redirect("/sign-in");
 
-const elements: TaskTableElements = {
-  task_id: {
-    header: (title) => <div>{title}</div>,
-    cell: (data) => {
-      return <>{data}</>;
-    },
-  },
-  task_title: {
-    header: (title) => <div>{title}</div>,
-    cell: (data) => {
-      return <>{data}</>;
-    },
-  },
-  project_id: {
-    header: (title) => <div>{title}</div>,
-    cell: (data) => {
-      return <>{data}</>;
-    },
-  },
-  status: {
-    header: (title) => <div>{title}</div>,
-    cell: (data) => {
-      return (
-        <div className={`text-white rounded-md ${colors[data]} pt-1 pb-1.5`}>
-          {data}
-        </div>
-      );
-    },
-  },
-  start_date: {
-    header: (title) => <div>{title}</div>,
-    cell: (data) => {
-      return <>{data}</>;
-    },
-  },
-  end_date: {
-    header: (title) => <div>{title}</div>,
-    cell: (data) => {
-      return <>{data}</>;
-    },
-  },
-  blockers: {
-    header: (title) => <div>{title}</div>,
-    cell: (data) => {
-      return <>{data}</>;
-    },
-  },
-  actions: {
-    header: (_) => <div>Actions</div>,
-    cell: (_) => {
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <div className="hover:bg-gray-200 rounded-md px-2 py-1">
-              <MoreHorizontal />
-            </div>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {/* <DropdownMenuLabel>Actions</DropdownMenuLabel> */}
-
-            <DropdownMenuItem onClick={() => {}}>Edit</DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => {}}>Delete</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
-  },
-};
-
-const TaskListsPage = () => {
   const headers: TaskTableData = TASK_LIST_HEADERS as TaskTableData;
-  const data: TaskTableData[] = TASK_LIST_DATA as TaskTableData[];
+  const data: TaskTableData[] = [];
+  (await getAllTasks({ limit: 1, page: 1 })).forEach((task, index) => {
+    data.push({
+      task_id: index + 1,
+      project_id: task.project_id,
+      start_date: task.started_at,
+      status: "started",
+      task_title: task.title,
+      blockers: task.blockers,
+    });
+  });
 
   return (
     <div className="w-5/6 h-full px-2 py-2 bg-white ">
-      <TaskTable
-        data={data}
-        elements={elements}
-        headers={headers}
-        className=""
-      />
+      <TaskTable data={data} headers={headers} className="" />
     </div>
   );
 };

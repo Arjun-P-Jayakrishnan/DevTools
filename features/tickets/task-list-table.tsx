@@ -8,6 +8,7 @@ import {
   TableRow,
 } from "@/modules/common/Table";
 import { useState } from "react";
+import { taskTableElements } from "./tableData";
 
 type TaskStatus =
   | "todo"
@@ -75,11 +76,10 @@ interface TaskTableData {
 interface TaskTableProps {
   headers: TaskTableData;
   data: TaskTableData[];
-  elements: TaskTableElements;
   className: string;
 }
 
-const TaskTable = ({ data, elements, className, headers }: TaskTableProps) => {
+const TaskTable = ({ data, className, headers }: TaskTableProps) => {
   const [sortBy, setSortBy] = useState<keyof TaskTableData>("task_id");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
@@ -94,10 +94,12 @@ const TaskTable = ({ data, elements, className, headers }: TaskTableProps) => {
           <TableRow>
             {keys.map((key) => (
               <TableHead key={key} className="text-center">
-                {elements[key]?.header(headers[key] ?? "")}
+                {taskTableElements[key]?.header(headers[key] ?? "")}
               </TableHead>
             ))}
-            <TableHead>{elements["actions"].header(undefined)}</TableHead>
+            <TableHead>
+              {taskTableElements["actions"].header(undefined)}
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -105,10 +107,10 @@ const TaskTable = ({ data, elements, className, headers }: TaskTableProps) => {
             <TableRow key={index}>
               {keys.map((key, index) => (
                 <TableCell key={`${key}-${index}`} className="text-center">
-                  {elements[key]?.cell(row[key] as any)}
+                  {taskTableElements[key]?.cell(row[key] as any)}
                 </TableCell>
               ))}
-              <TableCell>{elements["actions"].cell(null)}</TableCell>
+              <TableCell>{taskTableElements["actions"].cell(null)}</TableCell>
             </TableRow>
           ))}
         </TableBody>

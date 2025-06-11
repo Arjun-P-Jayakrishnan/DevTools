@@ -15,15 +15,7 @@ interface PostCardProps extends Post {
   key?: string | number;
 }
 
-const PostCard = ({
-  id,
-  key,
-  title,
-  tags,
-  created_at,
-  category,
-  topic,
-}: PostCardProps) => {
+const PostCard = ({ id, key, title, tags, created_at }: PostCardProps) => {
   return (
     <Card className="h-fit" key={key}>
       <CardHeader>
@@ -38,7 +30,9 @@ const PostCard = ({
         <Button>
           <Link href={`/library/posts/${id}`}>Read</Link>
         </Button>
-        <Button>Edit</Button>
+        <Button>
+          <Link href={`/library/posts/${id}/edit`}>Edit</Link>
+        </Button>
       </CardFooter>
     </Card>
   );

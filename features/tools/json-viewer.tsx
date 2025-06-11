@@ -1,19 +1,20 @@
 "use client";
 
 import { Textarea } from "@/modules/common/TextArea";
+import dynamic from "next/dynamic";
 import { useState } from "react";
-import ReactJson from "react-json-view";
 
 interface TextFieldProps extends React.ComponentProps<"textarea"> {
   errorText: string;
 }
+const ReactJson = dynamic(() => import("react-json-view"), { ssr: false });
 
 const JsonTextField = ({ errorText, onChange }: TextFieldProps) => {
   return (
-    <div className="h-5/6 w-1/2 border-r-2 ">
+    <div className="h-full w-3/4 border-r-2 ">
       <Textarea
         placeholder={"Paste the json here"}
-        className="input h-full rounded-none"
+        className="input h-5/6 rounded-none"
         onChange={(e) => {
           onChange?.(e);
         }}
@@ -48,7 +49,9 @@ const JsonViewer = () => {
         onChange={(e) => updateJson(e.target.value)}
         errorText={error}
       />
-      <ReactJson src={json} />
+      <div className="w-full">
+        <ReactJson src={json} />
+      </div>
     </div>
   );
 };

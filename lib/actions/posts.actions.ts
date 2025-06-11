@@ -56,7 +56,7 @@ export const createPost = async (formData: CreatePost) => {
       .select();
 
     if (error || !data)
-      throw new Error(error.message || "Failed to create companion");
+      throw new Error(error.message || "Failed to create post");
 
     return data[0];
   } catch (err) {
@@ -64,11 +64,35 @@ export const createPost = async (formData: CreatePost) => {
   }
 };
 
+/**
+ * @description creates a new post
+ * @param formData Post Data
+ * @returns
+ */
+export const updatePost = async (formData: Post) => {
+  console.log("updating post", formData);
+  try {
+    // const { userId: author } = await auth();
+    // const supabase = createSupabaseClient();
+    // const { data, error } = await supabase
+    //   .from("posts")
+    //   .update({ ...formData })
+    //   .eq("id", formData.id)
+    //   .select();
+    // if (error || !data)
+    //   throw new Error(error.message || "Failed to update post");
+    // return data[0];
+  } catch (err) {
+    console.log(`Error for updating ${err}`);
+    throw new Error(`Error while updat new post ${err}`);
+  }
+};
+
 export const getAllPosts = async ({
   limit = 10,
   page = 1,
 }: GetAllPosts): Promise<Post[]> => {
-  const { userId: author } = await auth();
+  await auth();
   const supabase = createSupabaseClient();
 
   let query = supabase.from("posts").select();
@@ -104,7 +128,7 @@ export const getPostById = async ({
   postId: string;
 }): Promise<Post | null> => {
   try {
-    const { userId: author } = await auth();
+    await auth();
     const supabase = createSupabaseClient();
 
     const { data, error } = await supabase
@@ -129,6 +153,7 @@ export const getPostById = async ({
       topic: data.topic,
     };
   } catch (err) {
+    console.log(err);
     return null;
   }
 };

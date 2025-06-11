@@ -5,8 +5,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from "@/modules/common/Form";
+import { Input } from "@/modules/common/Input";
 import { UseFormReturn } from "react-hook-form";
 import z from "zod";
 import { formSchema } from "./schema";

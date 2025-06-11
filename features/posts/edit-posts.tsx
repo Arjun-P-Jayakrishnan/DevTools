@@ -1,12 +1,10 @@
 "use client";
 
-import { POST_TEMPLATE } from "@/constants";
-import { createPost } from "@/lib/actions/posts.actions";
+import { updatePost } from "@/lib/actions/posts.actions";
 import Button from "@/modules/common/Button";
 import { Form } from "@/modules/common/Form";
 import MarkdownViewer from "@/modules/ui/markdown";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { redirect } from "next/navigation";
 import { useForm, UseFormReturn } from "react-hook-form";
 import z from "zod";
 import { FormInputProps, InputFormField } from "./InputField";
@@ -51,27 +49,6 @@ const fieldConfig: Record<keyof NewPostSchemaType, FormInputProps> = {
   },
 };
 
-/**
- * @description update database when submitted
- * return to view the newest post if created else throw Error
- * @param values currently populated values from form
- */
-async function onSubmit(values: z.infer<typeof formSchema>) {
-  try {
-    const posts = await createPost({
-      ...values,
-      tags: values.tags.split(","),
-    });
-
-    if (posts) {
-      redirect(`/library/posts/${posts.id}`);
-    }
-  } catch (err) {
-    console.log("Failed to create a post", err);
-    throw new Error(`Failed to create a new post in library due to ${err}`);
-  }
-}
-
 const PostHeader = ({
   form,
 }: {
@@ -106,10 +83,40 @@ const PostContent = ({
 };
 
 const LibraryPostForm = ({
+  id,
+  created_at,
   form,
 }: {
+  id: string;
+  created_at: string;
   form: UseFormReturn<z.infer<typeof formSchema>>;
 }) => {
+  /**
+   * @description update database when submitted
+   * return to view the newest post if created else throw Error
+   * @param values currently populated values from form
+   */
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const posts = await updatePost({
+        topic: values.title,
+        category: values.category,
+        content: values.content,
+        id: id,
+        tags: values.tags.split(","),
+        title: values.title,
+        created_at: created_at,
+      });
+      console.log("posts", { ...values });
+
+      // if (posts) {
+      //   redirect(`/library/posts/${posts.id}`);
+      // }
+    } catch (err) {
+      console.log("Failed to create a post", err);
+      throw new Error(`Failed to create a new post in library due to ${err}`);
+    }
+  }
   return (
     <div className="text-primary">
       <Form {...form}>
@@ -130,38 +137,46 @@ const LibraryPostForm = ({
  * @description allows user to create new post
  * @returns The template for the new post creation
  */
-const NewPost = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
+const EditPost = ({
+  id,
+  created_at,
+  category,
+  content,
+  tags,
+  title,
+  topic,
+}: NewPostSchemaType & { id: string; created_at: string }) => {
+  const form = useForm<NewPostSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "Setting up Auth",
-      category: "Authentication",
-      content: POST_TEMPLATE,
-      tags: "next-js",
-      topic: "Next Js Site",
+      title: title,
+      category: category,
+      content: content,
+      tags: tags,
+      topic: topic,
     },
   });
-  const { content, title, tags } = {
-    content: form.watch("content"),
-    title: form.watch("title"),
-    tags: form.watch("tags"),
+  const { _content, _title, _tags } = {
+    _content: form.watch("content"),
+    _title: form.watch("title"),
+    _tags: form.watch("tags"),
   };
 
   return (
     <div className="w-screen h-full flex flex-row justify-center px-2">
       <div className="w-1/2 h-full pr-4 border-r-2 pt-4">
-        <LibraryPostForm form={form} />
+        <LibraryPostForm form={form} created_at={created_at} id={id} />
       </div>
       {/* Split into two sections */}
       <div className=" w-1/2 h-full text-primary pl-3">
         <MarkdownViewer
-          title={title}
-          content={content}
-          tags={tags.split(",")}
+          title={_title}
+          content={_content}
+          tags={_tags.split(",")}
         />
       </div>
     </div>
   );
 };
 
-export default NewPost;
+export default EditPost;

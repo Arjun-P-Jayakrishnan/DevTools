@@ -1,6 +1,8 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
+
+import { createNewTask } from "@/lib/actions/tasks.actions";
+import Button from "@/modules/common/Button";
+import { Form } from "@/modules/common/Form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, UseFormReturn } from "react-hook-form";
 import z from "zod";
@@ -30,17 +32,10 @@ const fieldConfig: Record<keyof NewTaskSchemaType, FormInputProps> = {
     description: "The state of task.",
     form: null,
   },
-  start_date: {
-    field: "start_date",
+  started_at: {
+    field: "started_at",
     label: "Start Date",
     placeholder: "Starting Date",
-    description: "Choose a Date",
-    form: null,
-  },
-  end_date: {
-    field: "end_date",
-    label: "End Date",
-    placeholder: "Completion Date",
     description: "Choose a Date",
     form: null,
   },
@@ -60,13 +55,14 @@ const fieldConfig: Record<keyof NewTaskSchemaType, FormInputProps> = {
  */
 async function onSubmit(values: z.infer<typeof formSchema>) {
   try {
-    // const posts = await createPost({
-    //   ...values,
-    //   tags: values.tags.split(","),
-    // });
+    const posts = await createNewTask({
+      ...values,
+    });
     // if (posts) {
     //   redirect(`/library/posts/${posts.id}`);
     // }
+
+    console.log(`values ${JSON.stringify(values)}`);
   } catch (err) {
     console.log("Failed to create a post", err);
     throw new Error(`Failed to create a new post in library due to ${err}`);
@@ -83,8 +79,7 @@ const TaskInputFields = ({
       <InputFormField {...fieldConfig["title"]} form={form} />
       <InputFormField {...fieldConfig["project_id"]} form={form} />
       <InputFormField {...fieldConfig["status"]} form={form} />
-      <InputFormField {...fieldConfig["start_date"]} form={form} />
-      <InputFormField {...fieldConfig["end_date"]} form={form} />
+      <InputFormField {...fieldConfig["started_at"]} form={form} />
       <TextAreaFormField {...fieldConfig["blockers"]} form={form} />
     </div>
   );
@@ -113,8 +108,7 @@ const NewTask = () => {
     defaultValues: {
       title: "",
       status: "",
-      start_date: "",
-      end_date: "",
+      started_at: new Date().toISOString(),
       blockers: "",
       project_id: "",
     },

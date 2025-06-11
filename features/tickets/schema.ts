@@ -1,12 +1,11 @@
 import z from "zod";
 
 const formSchema = z.object({
-  title: z.string().min(2, { message: "Category is required." }),
-  project_id: z.string().min(2, { message: "Topic is required." }),
-  status: z.string().min(2, { message: "Tags is required." }),
-  start_date: z.string().min(2, { message: "Topic is required." }),
-  end_date: z.string().min(2, { message: "Topic is required." }),
-  blockers: z.string().min(2, { message: "Topic is required." }),
+  title: z.string().min(2, { message: "Title is required." }),
+  project_id: z.string().min(2, { message: "Project is required." }),
+  status: z.string().min(2, { message: "Status is required." }),
+  started_at: z.string().min(2, { message: "Start Date is required." }),
+  blockers: z.string().min(2, { message: "Blockers is required." }),
 });
 
 type NewTaskSchemaType = z.infer<typeof formSchema>;
