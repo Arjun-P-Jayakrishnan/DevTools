@@ -1,28 +1,28 @@
-import Sidebar, { Tile } from '@/components/layout/Sidebar'
-import { FilePlus2, FileStack } from 'lucide-react'
+import Sidebar, { Tile } from "@/modules/layout/Sidebar";
+import { FilePlus2, FileStack } from "lucide-react";
 
 const tiles: Tile[] = [
   {
-    title: 'Posts',
-    href: '/library/posts',
-    prefix: <FileStack />,
+    title: "Create New",
+    href: "/library/new",
+    prefix: <FilePlus2 height={20} />,
   },
   {
-    title: 'Create New',
-    href: '/library/posts',
-    prefix: <FilePlus2 />,
+    title: "Posts",
+    href: "/library/posts",
+    prefix: <FileStack height={20} />,
   },
-]
+];
 
 export default function LibraryLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
-    <div className="flexCenter flex-row">
+    <div className="h-[92vh] flex flex-row">
       <Sidebar tiles={tiles} />
       {children}
     </div>
-  )
+  );
 }

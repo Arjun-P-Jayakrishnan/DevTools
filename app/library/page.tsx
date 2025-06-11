@@ -1,3 +1,5 @@
 export default function LibraryPage() {
-  return <div className="w-5/6 h-screen bg-gray-100 rounded-md">hi</div>
+  return (
+    <div className="w-5/6 h-max bg-background rounded-md text-primary">hi</div>
+  );
 }
