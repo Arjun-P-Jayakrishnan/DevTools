@@ -1,4 +1,4 @@
-# 🚀 Dev Tools Website — Your Personal Dev Hub
+## 🚀 Dev Tools Website — Your Personal Dev Hub
 
 Welcome to **Dev Tools Website** — your very own digital workbench for managing notes, tasks, and essential developer utilities, all in one place. Whether you're jotting down ideas, organizing your to-dos, or running quick JSON checks, this platform is designed to supercharge your development workflow.
 
@@ -46,6 +46,7 @@ DevTools/
 │   ├── library/        # Personal library routes
 │   ├── tasks/          # Task manager routes
 │   ├── tools/          # Developer tools (e.g. JSON viewer)
+│   ├── contact/        # Contact
 │
 ├── components/         # Reusable UI components
 ├── lib/                # Utility functions, Supabase client, helpers
