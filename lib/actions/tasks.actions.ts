@@ -1,13 +1,11 @@
 "use server";
 
-import { auth } from "@clerk/nextjs/server";
 import { createSupabaseClient } from "../supabase";
 
 export interface CreateTask {
   title: string;
   project_id: string;
   status: string;
-  started_at: string;
   end_at?: string;
   blockers: string;
 }
@@ -41,9 +39,8 @@ export interface Task {
  */
 export const createNewTask = async (formData: CreateTask) => {
   try {
-    await auth();
     const supabase = createSupabaseClient();
-    console.log(`form data ${formData}`);
+
     const { data, error } = await supabase
       .from("tasks")
       .insert({ ...formData })
@@ -62,7 +59,6 @@ export const getAllTasks = async ({
   limit = 10,
   page = 1,
 }: GetAllPosts): Promise<Task[]> => {
-  await auth();
   const supabase = createSupabaseClient();
 
   let query = supabase.from("tasks").select();
@@ -70,8 +66,6 @@ export const getAllTasks = async ({
   query = query.range((page - 1) * limit, page * limit - 1);
 
   const { data, error } = await query;
-
-  console.log(data);
 
   if (error) throw new Error(error.message);
 
@@ -97,7 +91,6 @@ export const getPostById = async ({
   postId: string;
 }): Promise<Task | null> => {
   try {
-    await auth();
     const supabase = createSupabaseClient();
 
     const { data, error } = await supabase
@@ -107,7 +100,6 @@ export const getPostById = async ({
       .single();
 
     if (error) {
-      console.log(`Error while getting data`);
       return null;
     }
     if (!data) return null;
@@ -121,7 +113,6 @@ export const getPostById = async ({
       started_at: data.started_at,
     };
   } catch (err) {
-    console.log(err);
-    return null;
+    throw new Error(`Error ${err}`);
   }
 };

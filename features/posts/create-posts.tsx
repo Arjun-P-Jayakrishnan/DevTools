@@ -1,16 +1,16 @@
 "use client";
 
+import Button from "@/components/atoms/Button";
+import { Form } from "@/components/molecules/Form";
+import MarkdownViewer from "@/components/ui/markdown";
 import { POST_TEMPLATE } from "@/constants";
 import { createPost } from "@/lib/actions/posts.actions";
-import Button from "@/modules/common/Button";
-import { Form } from "@/modules/common/Form";
-import MarkdownViewer from "@/modules/ui/markdown";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { redirect } from "next/navigation";
 import { useForm, UseFormReturn } from "react-hook-form";
 import z from "zod";
-import { FormInputProps, InputFormField } from "./InputField";
-import { TextAreaFormField } from "./InputTeaxtArea";
+import { FormInputProps, InputFormField } from "./components/InputField";
+import { TextAreaFormField } from "./components/InputTeaxtArea";
 import { formSchema, NewPostSchemaType } from "./schema";
 
 const fieldConfig: Record<keyof NewPostSchemaType, FormInputProps> = {
@@ -64,7 +64,7 @@ async function onSubmit(values: z.infer<typeof formSchema>) {
     });
 
     if (posts) {
-      redirect(`/library/posts/${posts.id}`);
+      redirect(`/library/posts`);
     }
   } catch (err) {
     console.log("Failed to create a post", err);
@@ -130,7 +130,7 @@ const LibraryPostForm = ({
  * @description allows user to create new post
  * @returns The template for the new post creation
  */
-const NewPost = () => {
+const NewPost = ({ userId }: { userId: string }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

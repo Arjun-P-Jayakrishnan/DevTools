@@ -57,7 +57,6 @@ export const createPost = async (formData: CreatePost) => {
 
     if (error || !data)
       throw new Error(error.message || "Failed to create post");
-
     return data[0];
   } catch (err) {
     throw new Error(`Error while creating new post ${err}`);
@@ -70,20 +69,17 @@ export const createPost = async (formData: CreatePost) => {
  * @returns
  */
 export const updatePost = async (formData: Post) => {
-  console.log("updating post", formData);
   try {
-    // const { userId: author } = await auth();
-    // const supabase = createSupabaseClient();
-    // const { data, error } = await supabase
-    //   .from("posts")
-    //   .update({ ...formData })
-    //   .eq("id", formData.id)
-    //   .select();
-    // if (error || !data)
-    //   throw new Error(error.message || "Failed to update post");
-    // return data[0];
+    const supabase = createSupabaseClient();
+    const { data, error } = await supabase
+      .from("posts")
+      .update({ ...formData })
+      .eq("id", formData.id)
+      .select();
+    if (error || !data)
+      throw new Error(error.message || "Failed to update post");
+    return data[0];
   } catch (err) {
-    console.log(`Error for updating ${err}`);
     throw new Error(`Error while updat new post ${err}`);
   }
 };
@@ -100,8 +96,6 @@ export const getAllPosts = async ({
   query = query.range((page - 1) * limit, page * limit - 1);
 
   const { data, error } = await query;
-
-  console.log(data);
 
   if (error) throw new Error(error.message);
 
@@ -128,7 +122,6 @@ export const getPostById = async ({
   postId: string;
 }): Promise<Post | null> => {
   try {
-    await auth();
     const supabase = createSupabaseClient();
 
     const { data, error } = await supabase
@@ -138,7 +131,6 @@ export const getPostById = async ({
       .single();
 
     if (error) {
-      console.log(`Error while getting data`);
       return null;
     }
     if (!data) return null;
@@ -153,7 +145,6 @@ export const getPostById = async ({
       topic: data.topic,
     };
   } catch (err) {
-    console.log(err);
-    return null;
+    throw new Error(`Error ${err}`);
   }
 };

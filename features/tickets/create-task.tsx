@@ -1,13 +1,14 @@
 "use client";
 
+import Button from "@/components/atoms/Button";
+import { Form } from "@/components/molecules/Form";
 import { createNewTask } from "@/lib/actions/tasks.actions";
-import Button from "@/modules/common/Button";
-import { Form } from "@/modules/common/Form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { redirect } from "next/navigation";
 import { useForm, UseFormReturn } from "react-hook-form";
 import z from "zod";
-import { FormInputProps, InputFormField } from "./InputField";
-import { TextAreaFormField } from "./InputTeaxtArea";
+import { FormInputProps, InputFormField } from "./components/InputField";
+import { TextAreaFormField } from "./components/InputTeaxtArea";
 import { formSchema, NewTaskSchemaType } from "./schema";
 
 const fieldConfig: Record<keyof NewTaskSchemaType, FormInputProps> = {
@@ -32,13 +33,6 @@ const fieldConfig: Record<keyof NewTaskSchemaType, FormInputProps> = {
     description: "The state of task.",
     form: null,
   },
-  started_at: {
-    field: "started_at",
-    label: "Start Date",
-    placeholder: "Starting Date",
-    description: "Choose a Date",
-    form: null,
-  },
   blockers: {
     field: "blockers",
     label: "Blockers",
@@ -58,11 +52,10 @@ async function onSubmit(values: z.infer<typeof formSchema>) {
     const posts = await createNewTask({
       ...values,
     });
-    // if (posts) {
-    //   redirect(`/library/posts/${posts.id}`);
-    // }
-
     console.log(`values ${JSON.stringify(values)}`);
+    if (posts) {
+      redirect(`/planner/tasks`);
+    }
   } catch (err) {
     console.log("Failed to create a post", err);
     throw new Error(`Failed to create a new post in library due to ${err}`);
@@ -79,7 +72,6 @@ const TaskInputFields = ({
       <InputFormField {...fieldConfig["title"]} form={form} />
       <InputFormField {...fieldConfig["project_id"]} form={form} />
       <InputFormField {...fieldConfig["status"]} form={form} />
-      <InputFormField {...fieldConfig["started_at"]} form={form} />
       <TextAreaFormField {...fieldConfig["blockers"]} form={form} />
     </div>
   );
@@ -106,11 +98,10 @@ const NewTask = () => {
   const form = useForm<NewTaskSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      status: "",
-      started_at: new Date().toISOString(),
-      blockers: "",
-      project_id: "",
+      title: "Title",
+      status: "started",
+      blockers: "blockers",
+      project_id: "Portfolio",
     },
   });
 

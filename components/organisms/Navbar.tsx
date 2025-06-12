@@ -9,7 +9,7 @@ import {
 import { Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import Button from "../common/Button";
+import Button from "../atoms/Button";
 
 export function Navbar() {
   return (

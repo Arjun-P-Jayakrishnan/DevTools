@@ -1,5 +1,4 @@
-import { getAllPosts, Post } from "@/lib/actions/posts.actions";
-import Button from "@/modules/common/Button";
+import Button from "@/components/atoms/Button";
 import {
   Card,
   CardAction,
@@ -8,7 +7,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/modules/common/Card";
+} from "@/components/molecules/Card";
+import { getAllPosts, Post } from "@/lib/actions/posts.actions";
 import Link from "next/link";
 
 interface PostCardProps extends Post {

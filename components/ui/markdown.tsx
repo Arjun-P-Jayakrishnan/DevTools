@@ -2,7 +2,7 @@ import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import remarkGfm from "remark-gfm";
 import "../../app/globals.css";
-import Button from "../common/Button";
+import Button from "../atoms/Button";
 
 export interface MarkdownProps {
   title?: string;
@@ -10,19 +10,6 @@ export interface MarkdownProps {
   content?: string;
   className?: string;
 }
-
-const markdown = `
-  # Welcome to Dev Tools Markdown Editor!
-
-  Hi! I'm your first Markdown file in **StackEdit**. If you want to learn about StackEdit, you can read me. If you want to play with Markdown, you can edit me. Once you have finished with me, you can create new files by opening the **file explorer** on the left corner of the navigation bar.
-
-
-  # Files
-
-  StackEdit stores your files in your browser, which means all your files are automatically saved locally and are accessible **offline!**
-
-  ## Create files and folders
-`.trim();
 
 const MarkdownViewer = ({
   title,

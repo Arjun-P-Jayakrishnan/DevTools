@@ -1,4 +1,4 @@
-import Sidebar, { Tile } from "@/modules/layout/Sidebar";
+import Sidebar, { Tile } from "@/components/organisms/Sidebar";
 import { FolderKanban, TicketPlus } from "lucide-react";
 
 const tiles: Tile[] = [

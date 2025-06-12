@@ -1,14 +1,14 @@
+import { Textarea } from "@/components/atoms/TextArea";
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/modules/common/Form";
-import { Textarea } from "@/modules/common/TextArea";
+} from "@/components/molecules/Form";
 import { UseFormReturn } from "react-hook-form";
 import z from "zod";
-import { formSchema } from "./schema";
+import { formSchema } from "../schema";
 
 interface FormInputProps {
   label: string;

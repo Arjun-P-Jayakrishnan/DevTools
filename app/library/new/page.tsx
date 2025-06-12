@@ -7,7 +7,7 @@ const NewPostPage = async () => {
 
   if (!userId) redirect("/sign-in");
 
-  return <NewPost />;
+  return <NewPost userId={userId} />;
 };
 
 export default NewPostPage;

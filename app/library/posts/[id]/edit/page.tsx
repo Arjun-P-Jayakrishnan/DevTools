@@ -1,3 +1,5 @@
+"use server";
+
 import EditPost from "@/features/posts/edit-posts";
 import { NewPostSchemaType } from "@/features/posts/schema";
 import { getPostById } from "@/lib/actions/posts.actions";

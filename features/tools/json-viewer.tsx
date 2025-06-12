@@ -1,6 +1,6 @@
 "use client";
 
-import { Textarea } from "@/modules/common/TextArea";
+import { Textarea } from "@/components/atoms/TextArea";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 

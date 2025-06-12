@@ -1,5 +1,5 @@
+import MarkdownViewer from "@/components/ui/markdown";
 import { getPostById } from "@/lib/actions/posts.actions";
-import MarkdownViewer from "@/modules/ui/markdown";
 
 export default async function LibraryPage({
   params,

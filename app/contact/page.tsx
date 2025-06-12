@@ -1,4 +1,4 @@
-import { Card } from "@/modules/common/Card";
+import { Card } from "@/components/molecules/Card";
 import Image from "next/image";
 import Link from "next/link";
 export default function ContactPage() {

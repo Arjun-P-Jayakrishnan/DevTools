@@ -6,7 +6,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/modules/common/Table";
+} from "@/components/organisms/Table";
 import { useState } from "react";
 import { taskTableElements } from "./tableData";
 

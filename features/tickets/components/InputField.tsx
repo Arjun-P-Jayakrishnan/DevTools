@@ -1,3 +1,4 @@
+import { Input } from "@/components/atoms/Input";
 import {
   FormControl,
   FormDescription,
@@ -5,11 +6,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/modules/common/Form";
-import { Input } from "@/modules/common/Input";
+} from "@/components/molecules/Form";
 import { UseFormReturn } from "react-hook-form";
 import z from "zod";
-import { formSchema } from "./schema";
+import { formSchema } from "../schema";
 
 interface FormInputProps {
   label: string;

@@ -1,14 +1,14 @@
 "use client";
 
+import Button from "@/components/atoms/Button";
+import { Form } from "@/components/molecules/Form";
+import MarkdownViewer from "@/components/ui/markdown";
 import { updatePost } from "@/lib/actions/posts.actions";
-import Button from "@/modules/common/Button";
-import { Form } from "@/modules/common/Form";
-import MarkdownViewer from "@/modules/ui/markdown";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, UseFormReturn } from "react-hook-form";
 import z from "zod";
-import { FormInputProps, InputFormField } from "./InputField";
-import { TextAreaFormField } from "./InputTeaxtArea";
+import { FormInputProps, InputFormField } from "./components/InputField";
+import { TextAreaFormField } from "./components/InputTeaxtArea";
 import { formSchema, NewPostSchemaType } from "./schema";
 
 const fieldConfig: Record<keyof NewPostSchemaType, FormInputProps> = {
@@ -74,6 +74,49 @@ const PostSubHeader = ({
   );
 };
 
+/**
+ * @description update database when submitted
+ * return to view the newest post if created else throw Error
+ * @param values currently populated values from form
+ */
+async function onSubmit({
+  values,
+  id,
+  created_at,
+}: {
+  values: z.infer<typeof formSchema>;
+  id: string;
+  created_at: string;
+}) {
+  try {
+    // await updatePostClient(id, {
+    //   topic: values.topic,
+    //   category: values.category,
+    //   content: values.content,
+    //   tags: values.tags,
+    //   title: values.title,
+    //   created_at: created_at,
+    // });
+
+    const updated = await updatePost({
+      id: id,
+      created_at: created_at,
+      title: values.title,
+      category: values.category,
+      topic: values.topic,
+      tags: values.tags.split(","),
+      content: values.content,
+    });
+
+    // if (posts) {
+    //   redirect(`/library/posts/${posts.id}`);
+    // }
+  } catch (err) {
+    console.log("Failed to create a post", err);
+    throw new Error(`Failed to update a new post in library due to ${err}`);
+  }
+}
+
 const PostContent = ({
   form,
 }: {
@@ -81,6 +124,27 @@ const PostContent = ({
 }) => {
   return <TextAreaFormField {...fieldConfig["content"]} form={form} />;
 };
+
+async function updatePostClient(
+  id: string,
+  values: NewPostSchemaType & { created_at: string }
+) {
+  const res = await fetch(`/api/library/posts/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({}),
+  });
+
+  console.log("posting data");
+
+  if (!res.ok) {
+    throw new Error("Failed to update");
+  }
+
+  const data = await res.json();
+
+  return data;
+}
 
 const LibraryPostForm = ({
   id,
@@ -91,36 +155,19 @@ const LibraryPostForm = ({
   created_at: string;
   form: UseFormReturn<z.infer<typeof formSchema>>;
 }) => {
-  /**
-   * @description update database when submitted
-   * return to view the newest post if created else throw Error
-   * @param values currently populated values from form
-   */
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    try {
-      const posts = await updatePost({
-        topic: values.title,
-        category: values.category,
-        content: values.content,
-        id: id,
-        tags: values.tags.split(","),
-        title: values.title,
-        created_at: created_at,
-      });
-      console.log("posts", { ...values });
-
-      // if (posts) {
-      //   redirect(`/library/posts/${posts.id}`);
-      // }
-    } catch (err) {
-      console.log("Failed to create a post", err);
-      throw new Error(`Failed to create a new post in library due to ${err}`);
-    }
-  }
   return (
     <div className="text-primary">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form
+          onSubmit={form.handleSubmit((values) => {
+            onSubmit({
+              id: id,
+              created_at: created_at,
+              values: values,
+            });
+          })}
+          className="space-y-8"
+        >
           <PostHeader form={form} />
           <PostSubHeader form={form} />
           <PostContent form={form} />
