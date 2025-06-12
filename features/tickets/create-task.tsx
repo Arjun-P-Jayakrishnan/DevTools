@@ -4,7 +4,8 @@ import Button from "@/components/atoms/Button";
 import { Form } from "@/components/molecules/Form";
 import { createNewTask } from "@/lib/actions/tasks.actions";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { redirect } from "next/navigation";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { useRouter } from "next/navigation";
 import { useForm, UseFormReturn } from "react-hook-form";
 import z from "zod";
 import { FormInputProps, InputFormField } from "./components/InputField";
@@ -47,17 +48,22 @@ const fieldConfig: Record<keyof NewTaskSchemaType, FormInputProps> = {
  * return to view the newest post if created else throw Error
  * @param values currently populated values from form
  */
-async function onSubmit(values: z.infer<typeof formSchema>) {
+async function onSubmit({
+  values,
+  router,
+}: {
+  values: z.infer<typeof formSchema>;
+  router: AppRouterInstance;
+}) {
   try {
     const posts = await createNewTask({
       ...values,
     });
-    console.log(`values ${JSON.stringify(values)}`);
+
     if (posts) {
-      redirect(`/planner/tasks`);
+      router.push(`/planner/tasks`);
     }
   } catch (err) {
-    console.log("Failed to create a post", err);
     throw new Error(`Failed to create a new post in library due to ${err}`);
   }
 }
@@ -78,10 +84,20 @@ const TaskInputFields = ({
 };
 
 const TaskForm = ({ form }: { form: UseFormReturn<NewTaskSchemaType> }) => {
+  const router = useRouter();
+
   return (
     <div className="bg-white text-primary w-1/2 h-max border-2 rounded-md px-3 py-3">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form
+          onSubmit={form.handleSubmit((values) => {
+            onSubmit({
+              values: values,
+              router: router,
+            });
+          })}
+          className="space-y-8"
+        >
           <TaskInputFields form={form} />
           <Button type="submit">Submit</Button>
         </form>
