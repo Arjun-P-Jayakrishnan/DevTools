@@ -1,33 +1,28 @@
-import Sidebar, { Tile } from '@/components/layout/Sidebar'
-import { FolderKanban, TicketPlus, Tickets } from 'lucide-react'
+import Sidebar, { Tile } from "@/components/organisms/Sidebar";
+import { FolderKanban, TicketPlus } from "lucide-react";
 
 const tiles: Tile[] = [
   {
-    title: 'Projects',
-    href: '/planner/projects',
-    prefix: <FolderKanban />,
+    title: "Task List",
+    href: "/planner/tasks",
+    prefix: <FolderKanban height={20} />,
   },
   {
-    title: 'Tickets',
-    href: '/planner/tickets',
-    prefix: <Tickets />,
+    title: "Create New",
+    href: "/planner/new",
+    prefix: <TicketPlus height={20} />,
   },
-  {
-    title: 'Create New',
-    href: '/planner/posts',
-    prefix: <TicketPlus />,
-  },
-]
+];
 
 export default function PlannerLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
-    <div className="flexCenter flex-row">
+    <div className="h-[92vh] flex flex-row">
       <Sidebar tiles={tiles} />
       {children}
     </div>
-  )
+  );
 }

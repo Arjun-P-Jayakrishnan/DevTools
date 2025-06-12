@@ -1,23 +1,23 @@
-import Sidebar, { Tile } from '@/components/layout/Sidebar'
-import { FileJson } from 'lucide-react'
+import Sidebar, { Tile } from "@/components/organisms/Sidebar";
+import { FileJson } from "lucide-react";
 
 const tiles: Tile[] = [
   {
-    title: 'Json Parser',
-    href: '/library/posts',
-    prefix: <FileJson />,
+    title: "Json Viewer",
+    href: "/tools/json",
+    prefix: <FileJson height={20} />,
   },
-]
+];
 
-export default function ToolsLayout({
+export default function PlannerLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
-    <div className="flexCenter flex-row">
+    <div className="h-[92vh] flex flex-row">
       <Sidebar tiles={tiles} />
       {children}
     </div>
-  )
+  );
 }
