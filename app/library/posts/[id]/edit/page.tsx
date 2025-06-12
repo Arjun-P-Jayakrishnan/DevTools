@@ -15,7 +15,6 @@ const EditLibraryPostPage = async ({
 
   if (!userId) redirect("/sign-in");
   const postId = (await params).id;
-  console.log(`id in edit ${postId}`);
   const postData = await getPostById({ postId });
 
   const post: NewPostSchemaType & { id: string; created_at: string } = {

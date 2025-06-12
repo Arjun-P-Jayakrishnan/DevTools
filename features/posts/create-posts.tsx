@@ -6,7 +6,8 @@ import MarkdownViewer from "@/components/ui/markdown";
 import { POST_TEMPLATE } from "@/constants";
 import { createPost } from "@/lib/actions/posts.actions";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { redirect } from "next/navigation";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { useRouter } from "next/navigation";
 import { useForm, UseFormReturn } from "react-hook-form";
 import z from "zod";
 import { FormInputProps, InputFormField } from "./components/InputField";
@@ -56,7 +57,10 @@ const fieldConfig: Record<keyof NewPostSchemaType, FormInputProps> = {
  * return to view the newest post if created else throw Error
  * @param values currently populated values from form
  */
-async function onSubmit(values: z.infer<typeof formSchema>) {
+async function onSubmit(
+  values: z.infer<typeof formSchema>,
+  router: AppRouterInstance
+) {
   try {
     const posts = await createPost({
       ...values,
@@ -64,10 +68,9 @@ async function onSubmit(values: z.infer<typeof formSchema>) {
     });
 
     if (posts) {
-      redirect(`/library/posts`);
+      router.push(`/library/posts`);
     }
   } catch (err) {
-    console.log("Failed to create a post", err);
     throw new Error(`Failed to create a new post in library due to ${err}`);
   }
 }
@@ -110,10 +113,16 @@ const LibraryPostForm = ({
 }: {
   form: UseFormReturn<z.infer<typeof formSchema>>;
 }) => {
+  const router = useRouter();
   return (
     <div className="text-primary">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form
+          onSubmit={form.handleSubmit((values) => {
+            onSubmit(values, router);
+          })}
+          className="space-y-8"
+        >
           <PostHeader form={form} />
           <PostSubHeader form={form} />
           <PostContent form={form} />

@@ -5,6 +5,8 @@ import { Form } from "@/components/molecules/Form";
 import MarkdownViewer from "@/components/ui/markdown";
 import { updatePost } from "@/lib/actions/posts.actions";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { useRouter } from "next/navigation";
 import { useForm, UseFormReturn } from "react-hook-form";
 import z from "zod";
 import { FormInputProps, InputFormField } from "./components/InputField";
@@ -83,21 +85,14 @@ async function onSubmit({
   values,
   id,
   created_at,
+  router,
 }: {
   values: z.infer<typeof formSchema>;
   id: string;
   created_at: string;
+  router: AppRouterInstance;
 }) {
   try {
-    // await updatePostClient(id, {
-    //   topic: values.topic,
-    //   category: values.category,
-    //   content: values.content,
-    //   tags: values.tags,
-    //   title: values.title,
-    //   created_at: created_at,
-    // });
-
     const updated = await updatePost({
       id: id,
       created_at: created_at,
@@ -108,12 +103,11 @@ async function onSubmit({
       content: values.content,
     });
 
-    // if (posts) {
-    //   redirect(`/library/posts/${posts.id}`);
-    // }
+    if (updated) {
+      router.push(`/library/posts/`);
+    }
   } catch (err) {
-    console.log("Failed to create a post", err);
-    throw new Error(`Failed to update a new post in library due to ${err}`);
+    throw new Error(`Failed to update post in library due to ${err}`);
   }
 }
 
@@ -125,27 +119,6 @@ const PostContent = ({
   return <TextAreaFormField {...fieldConfig["content"]} form={form} />;
 };
 
-async function updatePostClient(
-  id: string,
-  values: NewPostSchemaType & { created_at: string }
-) {
-  const res = await fetch(`/api/library/posts/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({}),
-  });
-
-  console.log("posting data");
-
-  if (!res.ok) {
-    throw new Error("Failed to update");
-  }
-
-  const data = await res.json();
-
-  return data;
-}
-
 const LibraryPostForm = ({
   id,
   created_at,
@@ -155,6 +128,7 @@ const LibraryPostForm = ({
   created_at: string;
   form: UseFormReturn<z.infer<typeof formSchema>>;
 }) => {
+  const router = useRouter();
   return (
     <div className="text-primary">
       <Form {...form}>
@@ -164,6 +138,7 @@ const LibraryPostForm = ({
               id: id,
               created_at: created_at,
               values: values,
+              router: router,
             });
           })}
           className="space-y-8"

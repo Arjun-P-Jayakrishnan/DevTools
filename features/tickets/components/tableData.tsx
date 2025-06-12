@@ -1,8 +1,7 @@
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
+  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/molecules/Dropdown";
 import { MoreHorizontal } from "lucide-react";
@@ -75,11 +74,11 @@ const taskTableElements: TaskTableElements = {
             </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            {/* <DropdownMenuLabel>Actions</DropdownMenuLabel> */}
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
-            <DropdownMenuItem onClick={() => {}}>Edit</DropdownMenuItem>
+            {/* <DropdownMenuItem onClick={() => {}}>Edit</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => {}}>Delete</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => {}}>Delete</DropdownMenuItem> */}
           </DropdownMenuContent>
         </DropdownMenu>
       );

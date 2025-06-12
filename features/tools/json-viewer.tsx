@@ -22,7 +22,7 @@ const JsonTextField = ({ errorText, onChange }: TextFieldProps) => {
           if (e.key === "Tab") e.preventDefault();
         }}
       />
-      {errorText}
+      <h3 className="text-red-500">{errorText}</h3>
     </div>
   );
 };
@@ -37,7 +37,6 @@ const JsonViewer = () => {
       setError("");
       setJson(json);
     } catch (err) {
-      console.log(err);
       setError("Incorrect Json");
     }
     //setJson();
@@ -49,7 +48,7 @@ const JsonViewer = () => {
         onChange={(e) => updateJson(e.target.value)}
         errorText={error}
       />
-      <div className="w-full">
+      <div className="w-full border-t-2">
         <ReactJson src={json} />
       </div>
     </div>
