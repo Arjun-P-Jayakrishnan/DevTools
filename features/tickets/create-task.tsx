@@ -1,7 +1,7 @@
 "use client";
 
-import Button from "@/components/atoms/Button";
-import { Form } from "@/components/molecules/Form";
+import Button from "@/components/_Atoms/Button";
+import { Form } from "@/components/_Molecules/Form";
 import { createNewTask } from "@/lib/actions/tasks.actions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";

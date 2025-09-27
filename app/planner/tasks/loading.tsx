@@ -1,4 +1,4 @@
-import Spinner from "@/components/atoms/Spinner";
+import Spinner from "@/components/_Atoms/Spinner";
 
 export default function LoadingTasks() {
   return <Spinner />;
