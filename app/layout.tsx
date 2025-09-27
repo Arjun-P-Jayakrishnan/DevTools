@@ -1,4 +1,4 @@
-import Navbar from "@/components/_Organisms/Navbar";
+import Navbar from "@/components/Organisms/Navbar";
 import { ClerkProvider } from "@clerk/nextjs";
 import { type Metadata } from "next";
 import "./globals.css";

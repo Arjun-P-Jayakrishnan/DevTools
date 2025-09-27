@@ -1,4 +1,4 @@
-import { Card } from "@/components/_Molecules/Card";
+import { Card } from "@/components/Molecules/Card";
 import { GithubIcon, Linkedin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
