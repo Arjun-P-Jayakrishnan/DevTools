@@ -1,4 +1,4 @@
-import Sidebar, { Tile } from "@/components/_Organisms/Sidebar";
+import Sidebar, { Tile } from "@/components/Organisms/Sidebar";
 import { FileJson } from "lucide-react";
 
 const tiles: Tile[] = [

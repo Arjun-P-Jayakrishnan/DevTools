@@ -1,11 +1,11 @@
-import { Textarea } from "@/components/_Atoms/TextArea";
+import { Textarea } from "@/components/Atoms/TextArea";
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/_Molecules/Form";
+} from "@/components/Molecules/Form";
 import { UseFormReturn } from "react-hook-form";
 import z from "zod";
 import { formSchema } from "../schema";
