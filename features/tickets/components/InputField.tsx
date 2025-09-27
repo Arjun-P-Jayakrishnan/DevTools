@@ -1,4 +1,4 @@
-import { Input } from "@/components/Atoms/Input";
+import { Input } from "@/components/Atoms/Input/Input";
 import {
   FormControl,
   FormDescription,
@@ -6,7 +6,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/Molecules/Form";
+} from "@/components/Molecules/Form/Form";
 import { UseFormReturn } from "react-hook-form";
 import z from "zod";
 import { formSchema } from "../schema";

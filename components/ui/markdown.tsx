@@ -2,7 +2,7 @@ import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import remarkGfm from "remark-gfm";
 import "../../app/globals.css";
-import Button from "../Atoms/Button";
+import Button from "../Atoms/Buttons/Button";
 
 export interface MarkdownProps {
   title?: string;

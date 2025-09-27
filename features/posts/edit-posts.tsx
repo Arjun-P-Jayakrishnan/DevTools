@@ -1,7 +1,7 @@
 "use client";
 
-import Button from "@/components/Atoms/Button";
-import { Form } from "@/components/Molecules/Form";
+import Button from "@/components/Atoms/Buttons/Button";
+import { Form } from "@/components/Molecules/Form/Form";
 import MarkdownViewer from "@/components/ui/markdown";
 import { updatePost } from "@/lib/actions/posts.actions";
 import { zodResolver } from "@hookform/resolvers/zod";

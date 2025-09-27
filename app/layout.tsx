@@ -1,5 +1,5 @@
 import Navbar from "@/components/Organisms/Navbar";
-import { ClerkProvider } from "@clerk/nextjs";
+import { ContextProvider } from "@/providers/contextProvider";
 import { type Metadata } from "next";
 import "./globals.css";
 
@@ -14,13 +14,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider appearance={{ variables: { colorPrimary: "#fe5933" } }}>
+    <ContextProvider>
       <html lang="en">
         <body className="h-screen bg-white text-slate-100 font-sans">
           <Navbar />
           <div>{children}</div>
         </body>
       </html>
-    </ClerkProvider>
+    </ContextProvider>
   );
 }
