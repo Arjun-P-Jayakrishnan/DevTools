@@ -1,4 +1,4 @@
-import Button from "@/components/Atoms/Button";
+import Button from "@/components/Atoms/Buttons/Button";
 import {
   Card,
   CardAction,
@@ -7,7 +7,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/Molecules/Card";
+} from "@/components/Molecules/Card/Card";
 import { getAllPosts, Post } from "@/lib/actions/posts.actions";
 import Link from "next/link";
 
