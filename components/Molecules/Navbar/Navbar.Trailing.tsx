@@ -12,7 +12,9 @@ import React from "react";
 /**
  * Props for the Trailing (navbar actions) component.
  */
-export interface NavbarTrailing {}
+export interface NavbarTrailing {
+  className?: string;
+}
 
 /**
  * Renders the trailing section of the navbar:
@@ -20,11 +22,16 @@ export interface NavbarTrailing {}
  * - User menu for signed-in users
  * - Hamburger menu for mobile screens
  */
-const Trailing: React.FC<NavbarTrailing> = () => {
+const Trailing: React.FC<NavbarTrailing> = ({ className }) => {
   return (
     <>
       {/* Desktop actions */}
-      <div className="text-primary lg:flex flex-row justify-center items-center gap-4">
+      <div
+        className={[
+          "text-primary lg:flex flex-row justify-center items-center gap-4",
+          className,
+        ].join(" ")}
+      >
         <SignedOut>
           {/* Sign In Button */}
           <SignInButton>

@@ -8,7 +8,9 @@ import React from "react";
  * Currently empty, but can be extended later
  * if you want to pass logo `src`, `alt`, or `size` as props.
  */
-export interface NavbarLeading {}
+export interface NavbarLeading {
+  className?: string;
+}
 
 /**
  * Renders the leading logo in the navbar.
@@ -22,12 +24,15 @@ export interface NavbarLeading {}
  * @param {NavbarLeading} props - The component props (currently none)
  * @returns {JSX.Element} A link to the homepage with the brand logo
  */
-export const Leading: React.FC<NavbarLeading> = () => {
+export const Leading: React.FC<NavbarLeading> = ({ className }) => {
   return (
     <Link
       href="/"
       aria-label="Home"
-      className="flex flex-row justify-between gap-2 items-center"
+      className={[
+        "flex flex-row justify-between gap-2 items-center",
+        className,
+      ].join(" ")}
     >
       {/* <Image src="/toolbox.gif" alt="Logo" height={32} width={32} priority /> */}
       <AnimatedTools />
