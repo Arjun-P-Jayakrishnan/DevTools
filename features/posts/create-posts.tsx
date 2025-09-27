@@ -1,7 +1,7 @@
 "use client";
 
-import Button from "@/components/atoms/Button";
-import { Form } from "@/components/molecules/Form";
+import Button from "@/components/_Atoms/Button";
+import { Form } from "@/components/_Molecules/Form";
 import MarkdownViewer from "@/components/ui/markdown";
 import { POST_TEMPLATE } from "@/constants";
 import { createPost } from "@/lib/actions/posts.actions";

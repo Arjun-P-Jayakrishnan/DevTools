@@ -1,4 +1,4 @@
-import Navbar from "@/components/organisms/Navbar";
+import Navbar from "@/components/_Organisms/Navbar";
 import { ClerkProvider } from "@clerk/nextjs";
 import { type Metadata } from "next";
 import "./globals.css";
@@ -18,7 +18,7 @@ export default function RootLayout({
       <html lang="en">
         <body className="h-screen bg-white text-slate-100 font-sans">
           <Navbar />
-          {children}
+          <div>{children}</div>
         </body>
       </html>
     </ClerkProvider>
