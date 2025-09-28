@@ -31,14 +31,15 @@ interface NavbarRootProps {
  * @param {React.ReactNode} props.children - Children to render inside the navbar
  * @returns {JSX.Element} Navbar root container
  */
-function NavbarRoot({ children }: NavbarRootProps) {
+export function NavbarRoot({ children }: NavbarRootProps) {
   return (
     <div
       className="
-        h-[8vh] w-full text-primary
+        h-[8vh] w-full
         flex flex-row justify-between items-center
-        border-b-2 relative z-30
+        relative z-30
         py-0.1 px-4
+        text-white
       "
     >
       {children}
@@ -50,5 +51,3 @@ function NavbarRoot({ children }: NavbarRootProps) {
 NavbarRoot.Leading = Leading;
 NavbarRoot.Options = Options;
 NavbarRoot.Trailing = Trailing;
-
-export default NavbarRoot;
