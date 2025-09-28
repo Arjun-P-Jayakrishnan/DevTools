@@ -42,8 +42,8 @@ const Trailing: React.FC<NavbarTrailing> = ({ className }) => {
       </div>
 
       {/* Mobile menu */}
-      <button className="lg:hidden inline-flex items-center justify-center p-2 rounded-md hover:bg-gray-200">
-        <Menu height={32} width={32} />
+      <button className="lg:hidden inline-flex items-center justify-center p-2 rounded-md hover:bg-gray-200 text-sm">
+        <Menu className="2.5em" />
       </button>
     </div>
   );
