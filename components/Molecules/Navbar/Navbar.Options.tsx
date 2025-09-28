@@ -27,12 +27,12 @@ export const Options: React.FC<NavbarOptions> = ({ options }) => (
           href={href}
           className="
             flex items-center gap-2
-            text-primary cursor-pointer pb-1.5
+            cursor-pointer pb-1.5
             transition-all duration-200 ease-in-out
-            hover:font-bold hover:border-b-2
+            hover:font-bold hover:border-b-2 text-sm
           "
         >
-          {icon}
+          <span className="text-2xl">{icon}</span>
           {label}
         </Link>
       </li>

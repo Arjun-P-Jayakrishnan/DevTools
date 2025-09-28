@@ -1,4 +1,3 @@
-import Button from "@/components/Atoms/Buttons/Button";
 import {
   SignedIn,
   SignedOut,
@@ -9,76 +8,44 @@ import {
 import { Menu } from "lucide-react";
 import React from "react";
 
-/**
- * Props for the Trailing (navbar actions) component.
- */
 export interface NavbarTrailing {
   className?: string;
 }
 
-/**
- * Renders the trailing section of the navbar:
- * - Sign In / Sign Up buttons for signed-out users
- * - User menu for signed-in users
- * - Hamburger menu for mobile screens
- */
 const Trailing: React.FC<NavbarTrailing> = ({ className }) => {
   return (
-    <>
+    <div className="flex items-center gap-4">
       {/* Desktop actions */}
       <div
         className={[
-          "text-primary lg:flex flex-row justify-center items-center gap-4",
+          "hidden lg:flex flex-row items-center gap-4",
           className,
         ].join(" ")}
       >
         <SignedOut>
-          {/* Sign In Button */}
           <SignInButton>
-            <Button
-              className="
-                bg-gradient-to-r from-orange-400 to-orange-500
-                text-white font-semibold
-                px-5 py-2 flex items-center justify-center
-                rounded-lg shadow-lg
-                hover:from-orange-500 hover:to-orange-600
-                hover:scale-105
-                transition-transform transition-colors duration-300 ease-in-out
-              "
-            >
+            <button className="text-sm bg-gradient-to-r from-orange-400 to-orange-500 text-white font-semibold px-5 py-2 flex items-center justify-center rounded-lg shadow-lg hover:from-orange-500 hover:to-orange-600 hover:scale-105 transition-transform transition-colors duration-300 ease-in-out">
               Sign In
-            </Button>
+            </button>
           </SignInButton>
 
-          {/* Sign Up Button */}
           <SignUpButton>
-            <Button
-              className="
-                bg-blue-600 text-white font-semibold
-                px-5 py-2 flex items-center justify-center
-                rounded-lg shadow-md
-                hover:bg-blue-700 hover:scale-105
-                transition-transform transition-colors duration-300 ease-in-out
-              "
-            >
+            <button className="text-sm bg-blue-600 text-white font-semibold px-5 py-2 flex items-center justify-center rounded-lg shadow-md hover:bg-blue-700 hover:scale-105 transition-transform transition-colors duration-300 ease-in-out">
               Sign Up
-            </Button>
+            </button>
           </SignUpButton>
         </SignedOut>
 
-        {/* Signed in user */}
         <SignedIn>
           <UserButton />
         </SignedIn>
       </div>
 
-      {/* Mobile menu icon */}
-      <Menu
-        className="text-primary inline-block cursor-pointer lg:hidden"
-        height={32}
-        width={32}
-      />
-    </>
+      {/* Mobile menu */}
+      <button className="lg:hidden inline-flex items-center justify-center p-2 rounded-md hover:bg-gray-200">
+        <Menu height={32} width={32} />
+      </button>
+    </div>
   );
 };
 
